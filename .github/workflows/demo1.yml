@@ -1,9 +1,16 @@
 name: Events Demo 1
 on:
   pull_request:
-    types: # [opened, edited]
+    types: # [opened, edited] # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
       - opened
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'dev-*' # all branches with name starting with 'dev-' except those with slashes
+      - 'feat/**' # all branches with name starting with 'feat/' but ** means there are more slashes further
+    paths-ignore:
+      - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
